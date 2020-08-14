@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Weather Dashboard</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="./style.css">
+
+    
+
+</head>
+<body>
+    
+    <nav>
+        <div id="weatherDashboard">Weather Dashboard</div>
+    </nav>
+    <aside>
+        <div>
+            <div id="searchCity">Search for a City:</div>
+            <form class="form-inline my-2 my-lg-0 searching">
+                <input id="citySearchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" id="searchButton" type="submit">Search</button>
+              </form>
+        </div>
+    </aside>
+    <section id="cityInfo">
+
+    </section>
+    <section id="forecast">
+        <div id="titleFiveDayForecast">5-Day Forecast:</div>
+
+        <div class="card" style="width: 8rem;">
+            <div id="dayOne" class="card-body">
+                <h5 class="card-title">Friday</h5>
+                <p class="card-text">Temp: </p>
+                <p>Humidity: </p>
+            </div>
+        </div>
+
+        <div class="card" style="width: 8rem;">
+            <div id="dayTwo" class="card-body">
+                <h5 class="card-title">Saturday</h5>
+                <p class="card-text">Temp: </p>
+                <p>Humidity: </p>
+                
+            </div>
+        </div>
+
+        <div class="card" style="width: 8rem;">
+            <div id="dayThree" class="card-body">
+                <h5 class="card-title">Sunday</h5>
+                <p class="card-text">Temp: </p>
+                <p>Humidity: </p>
+            </div>
+        </div>
+
+        <div class="card" style="width: 8rem;">
+            <div class="card-body">
+                <h5 class="card-title">Monday</h5>
+                <p class="card-text">Temp: </p>
+                <p>Humidity: </p>
+            </div>
+        </div>
+
+        <div class="card" style="width: 8rem;">
+            <div class="card-body">
+                <h5 class="card-title">Tuesday</h5>
+                <p class="card-text">Temp: </p>
+                <p>Humidity: </p>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
