@@ -67,10 +67,32 @@ aside {
 }
 
 .card-body {
-    margin-bottom: 10px;
+    padding-bottom: 20px;
 }
 
 .card-text {
     margin-top: 80px;
 
+}
+
+
+
+#dayOne {
+    background-color: plum;
+}
+
+#dayTwo {
+    background-color: aquamarine;
+}
+
+#dayThree {
+    background-color: blanchedalmond;
+}
+
+#dayFour {
+    background-color: darkkhaki;
+}
+
+#dayFive {
+    background-color: lightsalmon;
 }

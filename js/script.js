@@ -44,23 +44,31 @@ $("#searchButton").click(function(event){
 
 function showCityWeather(city) {
 
-    var cityURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+    var oneDayInTheCityURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
 
     $.ajax({
-        url: cityURL,
+        url: oneDayInTheCityURL,
         method: "GET"
     })
     .then(function(response){
-        console.log("current city",response)
+        
+        console.log("current city",response);
+        console.log("does icon work?", response.weather[0].icon);
+
+        var icon = "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png";
+        $("#currentDayWeather").attr("src", icon);
+        $("#currentDayWeather").append(icon);
     })
 
-    $("#forecast").empty();
 
-    $("#dayOne").empty();
-    $("#dayTwo").empty();
-    $("#dayThree").empty();
-    $("#dayFour").empty();
-    $("#dayFive").empty();
+
+    // $("#forecast").empty();
+
+    // $("#dayOne").empty();
+    // $("#dayTwo").empty();
+    // $("#dayThree").empty();
+    // $("#dayFour").empty();
+    // $("#dayFive").empty();
 
 }
 
