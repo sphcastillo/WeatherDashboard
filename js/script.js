@@ -52,12 +52,41 @@ function showCityWeather(city) {
     })
     .then(function(response){
         
-        console.log("current city",response);
+        console.log("Current City infomation: ",response);
+        
         console.log("does icon work?", response.weather[0].icon);
+        
+        var currentCityName = response.name;
+        console.log("Current City Name: ", currentCityName);
 
-        var icon = "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png";
-        $("#currentDayWeather").attr("src", icon);
-        $("#currentDayWeather").append(icon);
+        var currentCityTemperature = response.main.temp;
+        console.log("Current City Temperature: ", currentCityTemperature);
+
+        var currentCityHumidity = response.main.humidity;
+        console.log("Current City Humidity: ", currentCityHumidity);
+
+        var currentCityWindSpeed = response.wind.speed;
+        console.log("Current City Wind Speed: ", currentCityWindSpeed);
+
+        var currentUVIndex;
+
+
+
+        var icon = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+        var currentDayIcon = $("<img>").attr("src", icon);
+        
+
+        var cityDateIcon = $("<h3>").text(`${currentCityName}` + " (" + `${ourStartDate}` + ") " + `${currentDayIcon}`);
+        $("#cityInfo").append(cityDateIcon);
+
+        var todaysTemperature = $("<h5>").text("Temperature: " + `${currentCityTemperature}`);
+        
+        var todaysHumidity = $("<h5>").text("Humidity: " + `${currentCityHumidity}`);
+        
+        var todaysWindSpeed = $("<h5>").text("Wind Speed: " + `${currentCityWindSpeed}`);
+        // var todaysUVIndex = $("<h5>").text("UV Index: ");
+
+        $("#cityInfo").append(todaysTemperature, todaysHumidity, todaysWindSpeed);
     })
 
 
