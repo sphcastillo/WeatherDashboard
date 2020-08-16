@@ -1,7 +1,5 @@
 var apiKey = "fcb6dfd486a0cd687db59694dc486ace";
 
-
-
 var ourStartDate = moment().format('L');  
 console.log("today's date: ", ourStartDate);
 
@@ -19,7 +17,6 @@ console.log("four days from now: ", fourDaysFromNow);
 
 var fiveDaysFromNow = moment().add(5, 'days').format('L'); 
 console.log("five days from now: ", fiveDaysFromNow);
-
 
 
 $("#searchButton").click(function(event){
@@ -53,6 +50,12 @@ function showCityWeather(city) {
     .then(function(response){
         
         console.log("Current City infomation: ",response);
+
+        var latitude = response.coord.lat;
+        console.log("latitude: " ,latitude);
+
+        var longitude = response.coord.lon;
+        console.log("longitude: ", longitude);
         
         console.log("does icon work?", response.weather[0].icon);
         
@@ -79,17 +82,21 @@ function showCityWeather(city) {
         var cityDateIcon = $("<h3>").text(`${currentCityName}` + " (" + `${ourStartDate}` + ") " + `${currentDayIcon}`);
         $("#cityInfo").append(cityDateIcon);
 
-        var todaysTemperature = $("<h5>").text("Temperature: " + `${currentCityTemperature}`);
+        var todaysTemperature = $("<h5>").text("Temperature: " + `${currentCityTemperature}` + " °F");
         
-        var todaysHumidity = $("<h5>").text("Humidity: " + `${currentCityHumidity}`);
+        var todaysHumidity = $("<h5>").text("Humidity: " + `${currentCityHumidity}` + " %");
         
-        var todaysWindSpeed = $("<h5>").text("Wind Speed: " + `${currentCityWindSpeed}`);
-        // var todaysUVIndex = $("<h5>").text("UV Index: ");
+        var todaysWindSpeed = $("<h5>").text("Wind Speed: " + `${currentCityWindSpeed}` + " MPH");
+        
+        var todaysUVIndex = $("<h5>").text("UV Index: ");
 
-        $("#cityInfo").append(todaysTemperature, todaysHumidity, todaysWindSpeed);
+        $("#cityInfo").append(todaysTemperature, todaysHumidity, todaysWindSpeed, todaysUVIndex);
+    
+        fiveDayForecast(city,latitude, longitude);
+    
     })
 
-
+    
 
     // $("#forecast").empty();
 
@@ -101,20 +108,65 @@ function showCityWeather(city) {
 
 }
 
-function fiveDayForecast(){
+function fiveDayForecast(cityInputed, latitude, longitude){
+    console.log("inside FiveDayForecast function");
 
 
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityInputed + "&appid=" + apiKey;
+    var fiveDayURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=imperial";
 
     $.ajax({
-        url: queryURL,
+        url: fiveDayURL,
         method: "GET"
 
     }).then(function(response){
 
-
-
         console.log("5 Day Forecast: ", response);
+
+// Day 1
+        var dayOneDate = $("<p>").text(tomorrow);
+        var dayOneIcon;
+        var dayOneTemperature;
+        var dayOneHumidity;
+        $("#dayOne").append(dayOneDate);
+
+// Day 2
+        var dayTwoDate = $("<p>").text(dayAfterTomorrow);;
+        var dayTwoIcon;
+        var dayTwoTemperature;
+        var dayTwoHumidity;
+        $("#dayTwo").append(dayTwoDate);
+
+// Day 3 
+
+        var dayThreeDate = $("<p>").text(threeDaysFromNow);;
+        var dayThreeIcon;
+        var dayThreeTemperature;
+        var dayThreeHumidity;
+        $("#dayThree").append(dayThreeDate);
+
+// Day 4
+
+        var dayFourDate = $("<p>").text(fourDaysFromNow);;
+        var dayFourIcon;
+        var dayFourTemperature;
+        var dayFourHumidity;
+        $("#dayFour").append(dayFourDate);
+
+// Day 5
+
+        var dayFiveDate = $("<p>").text(fiveDayForecast);;
+        var dayFiveIcon;
+        var dayFiveTemperature;
+        var dayFiveHumidity;
+        $("#dayFive").append(dayFiveDate);
+
+
     })
 
 }
+
+function fullCityList(){
+
+}
+
+
