@@ -20,20 +20,28 @@
         <div id="weatherDashboard">Weather Dashboard</div>
     </nav>
     <aside>
-        <div>
+        <div id="searching">
             <div id="searchCity">Search for a City:</div>
             <form class="form-inline my-2 my-lg-0 searching">
-                <input id="citySearchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" id="searchButton" type="submit">Search</button>
+                <input id="citySearchInput" class="form-control mr-sm-2" type="search" aria-label="Search">
+                <button id="searchButton" class="btn btn-outline-success my-2 my-sm-0" id="searchButton" type="submit">Search</button>
               </form>
         </div>
+
+        <div id="listofCities" class="btn-group-vertical">
+            <!-- <button type="button" class="btn btn-secondary btn-group-vertical cityInList">Left</button>
+            <button type="button" class="btn btn-secondary btn-group-vertical cityInList">Middle</button>
+            <button type="button" class="btn btn-secondary btn-group-vertical cityInList">Right</button> -->
+          </div>
+          
+        
     </aside>
     <section id="cityInfo">
     </section>
     <section id="forecast">
         <div id="titleFiveDayForecast">5-Day Forecast:</div>
 
-        <div class="card" style="width: 10rem;">
+        <div class="card cardOne" style="width: 10rem;">
             <div id="dayOne" class="card-body">
 
             </div>

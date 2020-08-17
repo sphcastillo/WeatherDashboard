@@ -41,6 +41,14 @@ $("#searchButton").click(function(event){
 
 function showCityWeather(city) {
 
+    $("#cityInfo").empty();
+    $("#dayOne").empty();
+    $("#dayTwo").empty();
+    $("#dayThree").empty();
+    $("#dayFour").empty();
+    $("#dayFive").empty();
+
+
     var oneDayInTheCityURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
 
     $.ajax({
@@ -97,14 +105,6 @@ function showCityWeather(city) {
 
     
 
-    // $("#forecast").empty();
-
-    // $("#dayOne").empty();
-    // $("#dayTwo").empty();
-    // $("#dayThree").empty();
-    // $("#dayFour").empty();
-    // $("#dayFive").empty();
-
 }
 
 function fiveDayForecast(cityInputed, latitude, longitude){
@@ -127,21 +127,25 @@ function fiveDayForecast(cityInputed, latitude, longitude){
         var todaysUVIndex = $("<h5>").text("UV Index: " + `${currentUVIndex}`);
         $("#cityInfo").append(todaysUVIndex);
 
-        if(currentUVIndex <= 2){
+
+
+
+        if(currentUVIndex <= 2.99){
             todaysUVIndex.css({"background-color": "green" , "width" : "150px"});
         }
-        else if(currentUVIndex <= 5 || currentUVIndex >= 3){
+        else if(currentUVIndex <= 5.99){
             todaysUVIndex.css({"background-color": "yellow" , "width" : "150px"});
         }
-        else if(currentUVIndex > 5 || currentUVIndex <= 7){
+        else if(currentUVIndex <= 7.99){
             todaysUVIndex.css({"background-color": "orange" , "width" : "150px"});
         }
-        else if(currentUVIndex >= 8 || currentUVIndex <= 10){
+        else if(currentUVIndex <= 10){
             todaysUVIndex.css({"background-color": "red", "width" : "150px"});
         }
-        else{
+        else {
             todaysUVIndex.css({"background-color" : "purple", "width": "150px"});
         }
+        
 
 
         var oneIcon = response.daily[0].weather[0].icon;
@@ -207,13 +211,28 @@ function fiveDayForecast(cityInputed, latitude, longitude){
         var dayFiveHumidity = $("<p>").text("Humidity: " + `${fiveHumidity}` + " %");
         $("#dayFive").append(dayFiveDate, dayFiveIcon ,dayFiveTemperature ,dayFiveHumidity);
 
+    fullCityList();
 
     })
 
 }
 
-function fullCityList(){
 
+function fullCityList(){
+    console.log("Inside the show the weather list function");
+
+    var arrayFullofCities = JSON.parse(localStorage.getItem("cities"));
+    console.log("array full of cities: ", arrayFullofCities);
+
+    for(var i = 0; i < arrayFullofCities.length; i++){
+
+        var aCity = arrayFullofCities[i];
+
+        var cityButton = $("<button>").addClass("btn btn-secondary btn-group-vertical cityInList")
+        .css({"background-color" : "white", "color" : "darkslategray", "border-color": "ghostwhite"})
+        .text(`${aCity}`);
+        $("#listofCities").append(cityButton);
+    }
 }
 
 
