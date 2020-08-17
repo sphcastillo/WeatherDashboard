@@ -47,6 +47,7 @@ function showCityWeather(city) {
     $("#dayThree").empty();
     $("#dayFour").empty();
     $("#dayFive").empty();
+    $("#listofCities").empty();
 
 
     var oneDayInTheCityURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
@@ -235,4 +236,13 @@ function fullCityList(){
     }
 }
 
+$("#listofCities").on("click", ".cityInList",function(event){
+    console.log("my city button is working");
 
+    event.preventDefault();
+
+    var cityCalledOnList = ($(this).text());
+    console.log("city called on list: ", cityCalledOnList);
+
+    showCityWeather(cityCalledOnList);
+})
