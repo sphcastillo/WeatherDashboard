@@ -71,16 +71,16 @@ function showCityWeather(city) {
         var currentCityWindSpeed = response.wind.speed;
         console.log("Current City Wind Speed: ", currentCityWindSpeed);
 
-        var currentUVIndex;
 
 
 
-        var icon = "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
-        var currentDayIcon = $("<img>").attr("src", icon);
-        
+        var iconPicture = response.weather[0].icon
+        var icon = "http://openweathermap.org/img/w/" + iconPicture + ".png";
+        var currentDayIcon = $(`<img src=${icon}>`)
+        console.log("currenDayIcon", currentDayIcon);
 
-        var cityDateIcon = $("<h3>").text(`${currentCityName}` + " (" + `${ourStartDate}` + ") " + `${currentDayIcon}`);
-        $("#cityInfo").append(cityDateIcon);
+        var cityDateIcon = $("<h3>").text(`${currentCityName}` + " (" + `${ourStartDate}` + ") ");
+        $("#cityInfo").append(cityDateIcon, currentDayIcon);
 
         var todaysTemperature = $("<h5>").text("Temperature: " + `${currentCityTemperature}` + " °F");
         
@@ -88,9 +88,8 @@ function showCityWeather(city) {
         
         var todaysWindSpeed = $("<h5>").text("Wind Speed: " + `${currentCityWindSpeed}` + " MPH");
         
-        var todaysUVIndex = $("<h5>").text("UV Index: ");
 
-        $("#cityInfo").append(todaysTemperature, todaysHumidity, todaysWindSpeed, todaysUVIndex);
+        $("#cityInfo").append(todaysTemperature, todaysHumidity, todaysWindSpeed);
     
         fiveDayForecast(city,latitude, longitude);
     
@@ -112,7 +111,7 @@ function fiveDayForecast(cityInputed, latitude, longitude){
     console.log("inside FiveDayForecast function");
 
 
-    var fiveDayURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=imperial";
+    var fiveDayURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude={part}&appid=" + apiKey + "&units=imperial";
 
     $.ajax({
         url: fiveDayURL,
@@ -122,43 +121,91 @@ function fiveDayForecast(cityInputed, latitude, longitude){
 
         console.log("5 Day Forecast: ", response);
 
+        var currentUVIndex = response.current.uvi;
+        console.log("UV Index: ", currentUVIndex);
+
+        var todaysUVIndex = $("<h5>").text("UV Index: " + `${currentUVIndex}`);
+        $("#cityInfo").append(todaysUVIndex);
+
+        if(currentUVIndex <= 2){
+            todaysUVIndex.css({"background-color": "green" , "width" : "150px"});
+        }
+        else if(currentUVIndex <= 5 || currentUVIndex >= 3){
+            todaysUVIndex.css({"background-color": "yellow" , "width" : "150px"});
+        }
+        else if(currentUVIndex > 5 || currentUVIndex <= 7){
+            todaysUVIndex.css({"background-color": "orange" , "width" : "150px"});
+        }
+        else if(currentUVIndex >= 8 || currentUVIndex <= 10){
+            todaysUVIndex.css({"background-color": "red", "width" : "150px"});
+        }
+        else{
+            todaysUVIndex.css({"background-color" : "purple", "width": "150px"});
+        }
+
+
+        var oneIcon = response.daily[0].weather[0].icon;
+        var pictureOne = "http://openweathermap.org/img/w/" + response.daily[0].weather[0].icon + ".png";
+        var twoIcon = response.daily[1].weather[0].icon;
+        var pictureTwo = "http://openweathermap.org/img/w/" + response.daily[1].weather[0].icon + ".png";
+        var threeIcon = response.daily[2].weather[0].icon;
+        var pictureThree = "http://openweathermap.org/img/w/" + response.daily[2].weather[0].icon + ".png";
+        var fourIcon = response.daily[3].weather[0].icon;
+        var pictureFour = "http://openweathermap.org/img/w/" + response.daily[3].weather[0].icon + ".png";
+        var fiveIcon = response.daily[4].weather[0].icon;
+        var pictureFive = "http://openweathermap.org/img/w/" + response.daily[4].weather[0].icon + ".png";
+
+
+        var oneTemperature = response.daily[0].temp.day;
+        var twoTemperature = response.daily[1].temp.day;
+        var threeTemperature = response.daily[2].temp.day;
+        var fourTemperature = response.daily[3].temp.day;
+        var fiveTemperature = response.daily[4].temp.day;
+
+        var oneHumidity = response.daily[0].humidity;
+        var twoHumidity = response.daily[1].humidity;
+        var threeHumidity= response.daily[2].humidity;
+        var fourHumidity = response.daily[3].humidity;
+        var fiveHumidity = response.daily[4].humidity;
+
+
 // Day 1
         var dayOneDate = $("<p>").text(tomorrow);
-        var dayOneIcon;
-        var dayOneTemperature;
-        var dayOneHumidity;
-        $("#dayOne").append(dayOneDate);
+        var dayOneIcon = $("<img>").attr("src", pictureOne);
+        var dayOneTemperature = $("<p>").text("Temperature: " + `${oneTemperature}` + " °F");
+        var dayOneHumidity = $("<p>").text("Humidity: " + `${oneHumidity}` + " %");
+        $("#dayOne").append(dayOneDate, dayOneIcon ,dayOneTemperature, dayOneHumidity);
 
 // Day 2
         var dayTwoDate = $("<p>").text(dayAfterTomorrow);;
-        var dayTwoIcon;
-        var dayTwoTemperature;
-        var dayTwoHumidity;
-        $("#dayTwo").append(dayTwoDate);
+        var dayTwoIcon = $("<img>").attr("src", pictureTwo);
+        var dayTwoTemperature = $("<p>").text("Temperature: " + `${twoTemperature}` + " °F");
+        var dayTwoHumidity = $("<p>").text("Humidity: " + `${twoHumidity}` + " %");
+        $("#dayTwo").append(dayTwoDate, dayTwoIcon ,dayTwoTemperature, dayTwoHumidity);
 
 // Day 3 
 
         var dayThreeDate = $("<p>").text(threeDaysFromNow);;
-        var dayThreeIcon;
-        var dayThreeTemperature;
-        var dayThreeHumidity;
-        $("#dayThree").append(dayThreeDate);
+        var dayThreeIcon = $("<img>").attr("src", pictureThree);
+        var dayThreeTemperature = $("<p>").text("Temperature: " + `${threeTemperature}` + " °F");
+        var dayThreeHumidity = $("<p>").text("Humidity: " + `${threeHumidity}`+ " %");
+        $("#dayThree").append(dayThreeDate, dayThreeIcon ,dayThreeTemperature ,dayThreeHumidity);
 
 // Day 4
 
         var dayFourDate = $("<p>").text(fourDaysFromNow);;
-        var dayFourIcon;
-        var dayFourTemperature;
-        var dayFourHumidity;
-        $("#dayFour").append(dayFourDate);
+        var dayFourIcon = $("<img>").attr("src", pictureFour);
+        var dayFourTemperature = $("<p>").text("Temperature: " + `${fourTemperature}` + " °F");
+        var dayFourHumidity = $("<p>").text("Humidity: " + `${fourHumidity}`+ " %");
+        $("#dayFour").append(dayFourDate, dayFourIcon ,dayFourTemperature ,dayFourHumidity);
 
 // Day 5
 
-        var dayFiveDate = $("<p>").text(fiveDayForecast);;
-        var dayFiveIcon;
-        var dayFiveTemperature;
-        var dayFiveHumidity;
-        $("#dayFive").append(dayFiveDate);
+        var dayFiveDate = $("<p>").text(fiveDaysFromNow);;
+        var dayFiveIcon = $("<img>").attr("src", pictureFive);
+        var dayFiveTemperature = $("<p>").text("Temperature: " + `${fiveTemperature}` + " °F");
+        var dayFiveHumidity = $("<p>").text("Humidity: " + `${fiveHumidity}` + " %");
+        $("#dayFive").append(dayFiveDate, dayFiveIcon ,dayFiveTemperature ,dayFiveHumidity);
 
 
     })

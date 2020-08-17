@@ -16,7 +16,7 @@ body {
 
 aside {
     height: 815px;
-    width: 30%;
+    width: 26%;
     background-color:whitesmoke;
     float: left;
 }
@@ -39,7 +39,7 @@ aside {
 
 #cityInfo {
     height: 395px;
-    width: 68%;
+    width: 72%;
     padding: 10px;
     margin-left: 10px;
     margin-top: 10px;
@@ -63,36 +63,37 @@ aside {
 
 .card {
     display: inline-block;
-    margin-left: 8px;
+    
+ 
 }
 
 .card-body {
-    padding-bottom: 20px;
+    height: 220px;
 }
-
-.card-text {
-    margin-top: 80px;
-
-}
-
 
 
 #dayOne {
     background-color: plum;
+    color: white;
 }
 
 #dayTwo {
     background-color: aquamarine;
+    color: white;
 }
 
 #dayThree {
     background-color: blanchedalmond;
+    color: white;
 }
 
 #dayFour {
     background-color: darkkhaki;
+    color: white;
 }
 
 #dayFive {
     background-color: lightsalmon;
+    color: white;
 }
+
